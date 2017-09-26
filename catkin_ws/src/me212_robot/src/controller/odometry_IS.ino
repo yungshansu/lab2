@@ -42,9 +42,9 @@ void loop() {
   //////////////////////////////////////////////////////////////////
   // write your code
 
-  // theta = ???
-  // x = ??? 
-  // y = ???
+  theta = theta + (dis_R-dis_L)/WIDTH
+  x = x + 0.5*cos(theta)*(dis_R+dis_L)
+  y = y + 0.5*sin(theta)*(dis_R+dis_L)
 
   ///////////////////////////////////////////////////////////////////
   msg.data_length = 3;
