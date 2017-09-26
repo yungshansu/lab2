@@ -29,7 +29,7 @@ class Tracking:
 		# stages: 1) straight line,
 		#         2) semi-circle
 		#         3) straight line again.
-		if stage==1:
+		if self.state==1:
 			if x<1 :
 				self.leftMotor.run(1)  
 				self.rightMotor.run(1) 
@@ -37,7 +37,7 @@ class Tracking:
 				self.rightMotor.setSpeed(60)
 			else :
 				stage = 2
-		if stage==2:
+		if self.state==2:
 			if theta< pi  :
 				self.leftMotor.run(1)  
 				self.rightMotor.run(1) 
@@ -45,7 +45,7 @@ class Tracking:
 				self.rightMotor.setSpeed(120)
 			else :
 				stage = 3
-		if stage==3:
+		if self.state==3:
 			if x>0  :
 				self.leftMotor.run(1)  
 				self.rightMotor.run(1) 
