@@ -29,8 +29,26 @@ class Tracking:
 		# stages: 1) straight line,
 		#         2) semi-circle
 		#         3) straight line again.
-
-
+		if stage==1:
+			if x<2 :
+				self.leftMotor.setSpeed(60)
+				self.rightMotor.setSpeed(60)
+			else :
+				stage = 2
+		if stage==2:
+			if theta<90  :
+				self.leftMotor.setSpeed(60)
+				self.rightMotor.setSpeed(120)
+			else :
+				stage = 3
+		if stage==3:
+			if x>0  :
+				self.leftMotor.setSpeed(60)
+				self.rightMotor.setSpeed(60)
+			else :
+				stage = 4
+		
+		
 
 	def custom_shutdown(self):
 		self.leftMotor.run(4)

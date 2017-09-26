@@ -45,6 +45,9 @@ void loop() {
   // theta = ???
   // x = ??? 
   // y = ???
+  theta = theta + (dis_R-dis_L)/(WIDTH);
+  x = x+ cos(theta)/2.0*(dis_L + dis_R);
+  y = x+ sin(theta)/2.0*(dis_L + dis_R);
 
   ///////////////////////////////////////////////////////////////////
   msg.data_length = 3;
