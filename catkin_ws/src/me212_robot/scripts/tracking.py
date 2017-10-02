@@ -39,11 +39,23 @@ class Tracking:
 		#         3) straight line again.
                 rospy.loginfo("x={} y={} theta={} state={}".format(x,y,theta,self.state))
 		if self.state==1:
-			if sqrt(x**2+y**2)<1 :
-				self.leftMotor.run(1)  
-				self.rightMotor.run(1) 
-				self.leftMotor.setSpeed(30)
-				self.rightMotor.setSpeed(30)
+			#if sqrt(x**2+y**2)<1 :
+                        if x<1 :
+                                if y>0.02:
+                                        self.leftMotor.run(1)  
+                                        self.rightMotor.run(1) 
+                                        self.leftMotor.setSpeed(20)
+                                        self.rightMotor.setSpeed(30)
+                                elif y<-0.02:
+                                        self.leftMotor.run(1)  
+                                        self.rightMotor.run(1) 
+                                        self.leftMotor.setSpeed(30)
+                                        self.rightMotor.setSpeed(20)
+                                else:
+                                        self.leftMotor.run(1)  
+                                        self.rightMotor.run(1) 
+                                        self.leftMotor.setSpeed(30)
+                                        self.rightMotor.setSpeed(30)
 			else :
 				self.state = 2
                                 self.flag = True
@@ -67,11 +79,22 @@ class Tracking:
 			else :
 				self.state = 3
 		if self.state==3:
-			if x>0 and y>0 :
-				self.leftMotor.run(1)  
-				self.rightMotor.run(1) 
-				self.leftMotor.setSpeed(30)
-				self.rightMotor.setSpeed(30)
+			if x>0 :
+                                if y<-0.02:
+                                        self.leftMotor.run(1)  
+                                        self.rightMotor.run(1) 
+                                        self.leftMotor.setSpeed(20)
+                                        self.rightMotor.setSpeed(30)
+                                elif y>0.02:
+                                        self.leftMotor.run(1)  
+                                        self.rightMotor.run(1) 
+                                        self.leftMotor.setSpeed(30)
+                                        self.rightMotor.setSpeed(20)
+                                else:
+                                        self.leftMotor.run(1)  
+                                        self.rightMotor.run(1) 
+                                        self.leftMotor.setSpeed(30)
+                                        self.rightMotor.setSpeed(30)
 			else :
 				self.state = 4
 
