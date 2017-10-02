@@ -34,55 +34,30 @@ class Tracking:
 		# stages: 1) straight line,
 		#         2) semi-circle
 		#         3) straight line again.
-                if self.state==1:
-                    # walk straight
-                    self.leftMotor.run(1)
-                    self.rightMotor.run(1)
-                    # start walking straight
-                    if self.task_flag:
-                        self.record_x = x
-                        self.record_y = y
-                        self.task_flag = False
-                    # check 1m straight line done  
-                    dist = sqrt((x-self.record_x)*(x-self.record_x)+(y-self.record_y)*(y-self.record_y))
-                    if abs(dist-1)<0.1:
-                        self.task_flag = True
-                        state = 2
-                elif self.state==2:
-                    # rotate in radius 0.25
-                        
-                    # start rotating
-                    if self.task_flag:
-                        self.record_theta = theta
-                        self.task_flag = False
-                        self.leftMotor.setSpeed(60)
-                        self.leftMotor.setSpeed(120)
-                    # check rotate semi-circle
-                    del_theta = abs(theta-self.record_theta)
-                    if abs(del_theta-pi)<0.05:
-                        self.leftMotor.setSpeed(60)
-                        self.leftMotor.setSpeed(60)
-                        self.task_flag = True
-                        state = 3
-                elif self.state==3:
-                    # walk straight
-                    self.leftMotor.run(1)
-                    self.rightMotor.run(1)
-                    # start walking straight
-                    if self.task_flag:
-                        self.record_x = x
-                        self.record_y = y
-                        self.task_flag = False
-                    # check 1m straight line done  
-                    dist = sqrt(x*x+y*y)
-                    if abs(dist-1)<0.1:
-                        self.task_flag = True
-                        state = 0
-                else:
-                    # brake
-                    self.leftMotor.run(3)
-                    self.rightMotor.run(3)
-                    rospy.loginfo("The task is done")
+		if self.state==1:
+			if x<1 :
+				self.leftMotor.run(1)  
+				self.rightMotor.run(1) 
+				self.leftMotor.setSpeed(60)
+				self.rightMotor.setSpeed(60)
+			else :
+				stage = 2
+		if self.state==2:
+			if theta< pi  :
+				self.leftMotor.run(1)  
+				self.rightMotor.run(1) 
+				self.leftMotor.setSpeed(60)
+				self.rightMotor.setSpeed(120)
+			else :
+				stage = 3
+		if self.state==3:
+			if x>0  :
+				self.leftMotor.run(1)  
+				self.rightMotor.run(1) 
+				self.leftMotor.setSpeed(60)
+				self.rightMotor.setSpeed(60)
+			else :
+				stage = 4
 
 	def custom_shutdown(self):
 		self.leftMotor.run(4)
