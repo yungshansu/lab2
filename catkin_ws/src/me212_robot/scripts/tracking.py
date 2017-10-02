@@ -22,6 +22,9 @@ class Tracking:
                 self.record_y = 0.
                 self.record_theta = 0.
 
+                self.flag = False
+                self.theta_init = 0
+
 		rospy.on_shutdown(self.custom_shutdown)
 		rospy.loginfo("[%s] Initialized!" %self.node_name)
 	def cbPosition(self,msg):
@@ -39,24 +42,36 @@ class Tracking:
 			if sqrt(x**2+y**2)<1 :
 				self.leftMotor.run(1)  
 				self.rightMotor.run(1) 
-				self.leftMotor.setSpeed(60)
-				self.rightMotor.setSpeed(60)
+				self.leftMotor.setSpeed(30)
+				self.rightMotor.setSpeed(30)
 			else :
 				self.state = 2
+                                self.flag = True
 		if self.state==2:
-			if theta<pi  :
+                        if self.flag:
+                            self.theta_init = theta
+                            self.flag = False
+                        del_theta = abs(theta-self.theta_init)
+			if del_theta<pi :
 				self.leftMotor.run(1)  
 				self.rightMotor.run(1) 
-				self.leftMotor.setSpeed(60)
-				self.rightMotor.setSpeed(120)
+				self.leftMotor.setSpeed(30)
+				self.rightMotor.setSpeed(60)
+                                '''
+				self.leftMotor.run(2)  
+				self.rightMotor.run(1) 
+				self.leftMotor.setSpeed(30)
+				self.rightMotor.setSpeed(30)
+                                '''
+
 			else :
 				self.state = 3
 		if self.state==3:
-			if x>0  :
+			if x>0 and y>0 :
 				self.leftMotor.run(1)  
 				self.rightMotor.run(1) 
-				self.leftMotor.setSpeed(60)
-				self.rightMotor.setSpeed(60)
+				self.leftMotor.setSpeed(30)
+				self.rightMotor.setSpeed(30)
 			else :
 				self.state = 4
 
