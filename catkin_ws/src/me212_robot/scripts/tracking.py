@@ -34,7 +34,7 @@ class Tracking:
 		# stages: 1) straight line,
 		#         2) semi-circle
 		#         3) straight line again.
-                rospy.loginfo("x={} y={} theta={} state={}".format(x,y,theta,state))
+                rospy.loginfo("x={} y={} theta={} state={}".format(x,y,theta,self.state))
 		if self.state==1:
 			if sqrt(x**2+y**2)<1 :
 				self.leftMotor.run(1)  
@@ -42,7 +42,7 @@ class Tracking:
 				self.leftMotor.setSpeed(60)
 				self.rightMotor.setSpeed(60)
 			else :
-				stage = 2
+				self.state = 2
 		if self.state==2:
 			if theta<pi  :
 				self.leftMotor.run(1)  
@@ -50,7 +50,7 @@ class Tracking:
 				self.leftMotor.setSpeed(60)
 				self.rightMotor.setSpeed(120)
 			else :
-				stage = 3
+				self.state = 3
 		if self.state==3:
 			if x>0  :
 				self.leftMotor.run(1)  
@@ -58,7 +58,7 @@ class Tracking:
 				self.leftMotor.setSpeed(60)
 				self.rightMotor.setSpeed(60)
 			else :
-				stage = 4
+				self.state = 4
 
 	def custom_shutdown(self):
 		self.leftMotor.run(4)
