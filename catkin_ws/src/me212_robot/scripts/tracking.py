@@ -34,7 +34,7 @@ class Tracking:
 		# stages: 1) straight line,
 		#         2) semi-circle
 		#         3) straight line again.
-                if state==1:
+                if self.state==1:
                     # walk straight
                     self.leftMotor.run(1)
                     self.rightMotor.run(1)
@@ -48,7 +48,7 @@ class Tracking:
                     if abs(dist-1)<0.1:
                         self.task_flag = True
                         state = 2
-                elif state==2:
+                elif self.state==2:
                     # rotate in radius 0.25
                         
                     # start rotating
@@ -64,7 +64,7 @@ class Tracking:
                         self.leftMotor.setSpeed(60)
                         self.task_flag = True
                         state = 3
-                elif state==3:
+                elif self.state==3:
                     # walk straight
                     self.leftMotor.run(1)
                     self.rightMotor.run(1)
