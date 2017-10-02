@@ -2,7 +2,7 @@
 from Adafruit_MotorHAT import Adafruit_MotorHAT
 import rospy
 from std_msgs.msg import Float64MultiArray
-from math import pi, radians
+from math import pi, radians, sqrt
 class Tracking:
 	def __init__(self):
 		self.node_name = rospy.get_name()	
@@ -35,7 +35,7 @@ class Tracking:
 		#         2) semi-circle
 		#         3) straight line again.
 		if self.state==1:
-			if x<1 :
+			if sqrt(x**2+y**2)<1 :
 				self.leftMotor.run(1)  
 				self.rightMotor.run(1) 
 				self.leftMotor.setSpeed(60)
@@ -43,7 +43,7 @@ class Tracking:
 			else :
 				stage = 2
 		if self.state==2:
-			if theta< pi  :
+			if theta<pi  :
 				self.leftMotor.run(1)  
 				self.rightMotor.run(1) 
 				self.leftMotor.setSpeed(60)
