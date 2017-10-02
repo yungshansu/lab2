@@ -34,6 +34,7 @@ class Tracking:
 		# stages: 1) straight line,
 		#         2) semi-circle
 		#         3) straight line again.
+                rospy.loginfo("x={} y={} theta={} state={}".format(x,y,theta,state))
 		if self.state==1:
 			if sqrt(x**2+y**2)<1 :
 				self.leftMotor.run(1)  
